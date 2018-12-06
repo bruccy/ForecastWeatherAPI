@@ -9,7 +9,7 @@ namespace ForecastWeatherAPI.Repository.Interfaces
     {
         IList<ForecastWeather> GetForecastWeatherList();
 
-        DatabaseFacade Database { get; }
+        void EnsureCreated();
 
         void Insert(IList<ForecastWeather> list);
     }

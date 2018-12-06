@@ -27,5 +27,10 @@ namespace ForecastWeatherAPI.Repository.Implementations
             ForecastsWeather.AddRange(list);
             SaveChanges();
         }
+
+        public void EnsureCreated()
+        {
+            Database.EnsureCreated();
+        }
     }
 }
