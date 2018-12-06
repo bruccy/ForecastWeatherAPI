@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ForecastWeatherAPI.Factory;
+using ForecastWeatherAPI.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForecastWeatherAPI.Controllers
@@ -14,7 +16,19 @@ namespace ForecastWeatherAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var rng = new Random();
+            var number = Math.Round((decimal)rng.Next(0, 100), 0);
+            //Randomly return an Error
+            if (number % 2 == 0)
+            {
+                var repository = InstanceFactory.Create<IForecastWeatherRepository>();
+                return Ok(
+                    repository.GetForecastWeatherList()
+                );
+            }
+            else
+                //Return error 500
+                return StatusCode(500);
         }
 
         // GET api/values/5
